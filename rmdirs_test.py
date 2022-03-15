@@ -27,11 +27,15 @@ class DirectoryTestCase(unittest.TestCase):
     
     dir_paths = [
         'test_dirs/test_empty',
+        
         'test_dirs/test_subdirs/1/',
         'test_dirs/test_subdirs/2/21',
         'test_dirs/test_subdirs/3/31',
         'test_dirs/test_subdirs/3/32/321',
-        'test_dirs/test_subdirs/3/33',          
+        'test_dirs/test_subdirs/3/33',  
+         
+        'test_dirs/test_renaming/',       
+        'test_dirs/test_renaming/1/',    
     ]
     
     file_contents = {
@@ -39,6 +43,10 @@ class DirectoryTestCase(unittest.TestCase):
         'test_dirs/test_subdirs/1/cfg.txt' : '"python.testing.pytestEnabled": false',
         'test_dirs/test_subdirs/2/same_name.txt' : None,
         'test_dirs/test_subdirs/2/21/same_name.txt' : None,
+
+        'test_dirs/test_renaming/1_1.txt' : 'existing file',
+        'test_dirs/test_renaming/1_1 (1).txt' : 'existing file',
+        'test_dirs/test_renaming/1/1.txt' : 'renamed_file',          
     }
     
     def setUp(self) -> None:
@@ -57,8 +65,8 @@ class DirectoryTestCase(unittest.TestCase):
             
     
     def tearDown(self) -> None:
-        shutil.rmtree('test_dirs')
-    
+        # shutil.rmtree('test_dirs')
+        pass
     
     
     
@@ -88,6 +96,16 @@ class TestRmdirs(LoggingTestCase, DirectoryTestCase):
         
         # self.assertTrue(not os.path.exists( PATH TO SUBDIRS ))
         self.assertTrue(os.path.exists('test_dirs/test_subdirs'))
+        
+    
+    def test_renaming(self):
+        """ Test """
+
+        target_dir = 'test_dirs/test_renaming'
+
+        self.assertTrue(os.path.exists(target_dir))
+        
+        rmdirs.remove(target_dir)
 
         
 if __name__ == "__main__":

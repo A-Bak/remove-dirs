@@ -7,5 +7,6 @@
 # Compiled byte code
 **/__pycache__
 
-# Test logs
+# Test logs and directories
 **/test_log.txt
+**/test_dirs
