@@ -1,3 +1,11 @@
+# VSCode settings
 **/.vscode
+
+# Virtual environment dir
 **/venv
+
+# Compiled byte code
 **/__pycache__
+
+# Test logs
+**/test_log.txt
