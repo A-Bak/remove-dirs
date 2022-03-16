@@ -35,7 +35,30 @@ class TestRmdirsStringUtil(LoggingTestCase, DirectoryTestCase):
     def test_rename_if_exists(self):
         """ Test if file names are renamed to avoid naming conflicts. """
         
-     
+        file_path = 'test/test_dirs/test_rename_if_exists/(1)'
+        result = os.path.basename(rmdirs.rename_if_exists(file_path)) 
+        expected = '(1) (1)'
+        self.assertEquals(result, expected)
+        
+        file_path = 'test/test_dirs/test_rename_if_exists/(2)'
+        result = os.path.basename(rmdirs.rename_if_exists(file_path)) 
+        expected = os.path.basename(file_path)
+        self.assertEquals(result, expected)
+        
+        file_path = 'test/test_dirs/test_rename_if_exists/(0).ext'
+        result = os.path.basename(rmdirs.rename_if_exists(file_path)) 
+        expected = '(0) (1).ext'
+        self.assertEquals(result, expected)
+
+        file_path = 'test/test_dirs/test_rename_if_exists/file.txt'
+        result = os.path.basename(rmdirs.rename_if_exists(file_path)) 
+        expected = 'file (1).txt'
+        self.assertEquals(result, expected)
+        
+        file_path = 'test/test_dirs/test_rename_if_exists/file_file.txt'
+        result = os.path.basename(rmdirs.rename_if_exists(file_path)) 
+        expected = 'file_file (3).txt'
+        self.assertEquals(result, expected)
         
         
         
