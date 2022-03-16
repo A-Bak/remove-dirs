@@ -50,12 +50,30 @@ def new_file_name(file_name: FileName, current_dir: FilePath, root_dir: FilePath
 
         
 def rename_if_exists(target_file_path: FilePath) -> FilePath:
+    """
+    Function returns a new file path that does not already exist.
+    If the target_file_path does not exist then it is unchanged.
+    If the target_file_path already exists then the returned file path is
+    such that there are no naming conflicts.
+    
+    E.g.:
+    'target/file/path.ext'
+    => 'target/file/path' + ' (i)' + .ext'
+    => 'target/file/path (i).ext'
+    
+    Parameters
+    -------------------------------------------------------------------------
+        target_file_path : FilePath
+            path to a new file location
+            
+    Returns
+    -------------------------------------------------------------------------
+        potentially a new file path that doesn't already exist
+    """   
     
     if os.path.exists(target_file_path):
         
-        # Split off extension from target_file_path and add index (i) to distinguish the file
-        # 'target/file/path.ext' -> 'target/file/path' + ' (i)' + .ext' ->  'target/file/path (i).ext'
-        
+        # Split off extension from target_file_path and add index (i) to distinguish the file        
         i = 1
         new_file_path = '{1} ({0}){2}'.format(i, *os.path.splitext(target_file_path))
         
