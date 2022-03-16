@@ -69,22 +69,67 @@ def rename_if_exists(target_file_path: FilePath) -> FilePath:
         return target_file_path    
         
         
-def replace_chars(string: str, char_list: List[Char], replacement: str='_') -> str:
-    """ Docstring """
+def replace_chars(string: str, char_list: List[Char], replacement: Char='_') -> str:
+    """
+    Function replaces every occurence of characters from char_list in input
+    string with the replacement character.
+    
+    Parameters
+    -------------------------------------------------------------------------
+        string : str
+            input string
+        char_list : List[Char]
+            list of characters that will be replaced in the input string
+        replacement : Char
+            character that will replace each occurence of characters from char_list
+            
+    Returns
+    -------------------------------------------------------------------------
+        copy of the input string with replaced characters
+        
+    Raises
+    -------------------------------------------------------------------------
+        ValueError
+            if the char_list is an empty list
+        TypeError
+            if the input string or characters in char_list are not type of str
+    """   
     if not char_list:
         raise ValueError('Argument char_list is an empty list.')
     
     new_string = string
     
-    if string_contains(string, char_list):
-        for ch in char_list:
-            new_string = new_string.replace(ch, replacement)
+    try:
+        if string_contains(string, char_list):
+            for ch in char_list:
+                new_string = new_string.replace(ch, replacement)
+                
+    except TypeError as e:
+        raise e
 
     return new_string
 
 
 def string_contains(string: str, char_list: List[Char]) -> bool:     
-    """ Docstring """
+    """ 
+    Function checks if the input string contains any characters from char_list.
+    
+    Parameters
+    -------------------------------------------------------------------------
+        string : str
+            input string
+        char_list : List[Char]
+            list of characters
+            
+    Returns
+    -------------------------------------------------------------------------
+        True if input string contains any characters from char_list, False otherwise
+        
+    Raises
+    -------------------------------------------------------------------------
+        TypeError
+            if the input string or characters in char_list are not type of str 
+    """
     if not isinstance(string, str):
         raise TypeError('String argument is not of type str.')
     
