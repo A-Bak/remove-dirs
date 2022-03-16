@@ -10,3 +10,6 @@
 # Test logs and directories
 **/test_log.txt
 **/test_dirs
+
+# Local deployment of the package
+**/rmdirs.egg-info

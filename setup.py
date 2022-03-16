@@ -14,6 +14,6 @@ setuptools.setup(
     long_description=long_description,
     author="A-Bak",
     author_email="adam.bak753@gmail.com",
-    packages=["rmdirs"],
+    packages=[".", ".test"],
     install_requires=required,
 )
