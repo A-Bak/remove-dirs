@@ -7,31 +7,7 @@ import shutil
 
 
 class DirectoryTestCase(unittest.TestCase):
-    
-    dir_paths = [
-        'test/test_dirs/test_empty',
-        
-        'test/test_dirs/test_subdirs/1/',
-        'test/test_dirs/test_subdirs/2/21',
-        'test/test_dirs/test_subdirs/3/31',
-        'test/test_dirs/test_subdirs/3/32/321',
-        'test/test_dirs/test_subdirs/3/33',  
-         
-        'test/test_dirs/test_renaming/',       
-        'test/test_dirs/test_renaming/1/',    
-    ]
-    
-    file_contents = {
-        'test/test_dirs/test_subdirs/1/empty' : None,
-        'test/test_dirs/test_subdirs/1/cfg.txt' : '"python.testing.pytestEnabled": false',
-        'test/test_dirs/test_subdirs/2/same_name.txt' : None,
-        'test/test_dirs/test_subdirs/2/21/same_name.txt' : None,
-
-        'test/test_dirs/test_renaming/1_1.txt' : 'existing file',
-        'test/test_dirs/test_renaming/1_1 (1).txt' : 'existing file',
-        'test/test_dirs/test_renaming/1/1.txt' : 'renamed_file',          
-    }
-    
+     
     def setUp(self) -> None:
                 
         for dir in self.dir_paths:
@@ -48,6 +24,6 @@ class DirectoryTestCase(unittest.TestCase):
             
     
     def tearDown(self) -> None:
-        # shutil.rmtree('test_dirs')
+        # shutil.rmtree('test/test_dirs')
         pass
     

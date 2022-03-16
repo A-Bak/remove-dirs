@@ -10,25 +10,37 @@ from directory_test_case import DirectoryTestCase
 
 
 class TestRmdirsStringUtil(LoggingTestCase, DirectoryTestCase):
-    """ Test rmdirs utility."""
+    """ Test rmdirs utility. """
     
     
     def setUp(self) -> None:
+        
+        self.dir_paths = [            
+            'test/test_dirs/test_rename_if_exists/',       
+            
+        ]
+    
+        self.file_contents = {
+            'test/test_dirs/test_rename_if_exists/(1)' : None,         
+            'test/test_dirs/test_rename_if_exists/(0).ext' : None,          
+            'test/test_dirs/test_rename_if_exists/file.txt' : None,       
+            'test/test_dirs/test_rename_if_exists/file_file.txt' : None,       
+            'test/test_dirs/test_rename_if_exists/file_file (1).txt' : None,       
+            'test/test_dirs/test_rename_if_exists/file_file (2).txt' : None,       
+        }
+        
         return super().setUp()
     
     
-    def test_renaming(self):
-        """ Test """
-
-        target_dir = 'test_dirs/test_renaming'
-
-        self.assertTrue(os.path.exists(target_dir))
+    def test_rename_if_exists(self):
+        """ Test if file names are renamed to avoid naming conflicts. """
         
-        rmdirs.remove(target_dir)
+     
+        
         
         
     def test_replace_chars(self):
-        """ Test if a list of characters is correctly replaced in a string."""
+        """ Test if a list of characters is correctly replaced in a string. """
 
         self.assertRaises(TypeError, rmdirs.replace_chars, (123456, ['1']))
         self.assertRaises(TypeError, rmdirs.replace_chars, ("123456", [1]))
@@ -57,7 +69,7 @@ class TestRmdirsStringUtil(LoggingTestCase, DirectoryTestCase):
 
         
     def test_string_contains(self):
-        """ Test if given string contains a character from a set of characters."""
+        """ Test if given string contains a character from a set of characters. """
         
         self.assertRaises(TypeError, rmdirs.string_contains, (-1, []))
         self.assertRaises(TypeError, rmdirs.string_contains, ("", [1]))
