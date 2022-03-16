@@ -1,6 +1,4 @@
-from genericpath import samefile
-from tkinter.ttk import Separator
-from typing import List, Tuple
+from typing import List
 
 import os
 import shutil
@@ -14,9 +12,20 @@ FileName = str
 
 
 def remove(root_dir: FilePath, separator: Char='_') -> None:
-    """ 
-    Docstring
     """
+    Function
+    
+    Parameters
+    -------------------------------------------------------------------------
+        file_name : FileName
+            name of the file
+        separator : Char
+            character that will be placed into the new file name instead of '\\\\' and '/'
+            
+    Returns
+    -------------------------------------------------------------------------
+        None
+    """   
     if not os.path.exists(root_dir):
         raise ValueError("Invalid path to directory.")
     
@@ -41,9 +50,33 @@ def remove(root_dir: FilePath, separator: Char='_') -> None:
     
     
 def new_file_name(file_name: FileName, current_dir: FilePath, root_dir: FilePath, separator: Char='_'):
-    """ 
-    Docstring
     """
+    Function returns new file name for a file located in one of the subdirectories
+    of the root_dir. The new file name consists of 'prefix' + file_name, where 
+    prefix is the relative path between root_dir and current_dir with all
+    backslashes and forwardslashes replaced by the separator character.
+    
+    E.g.:
+    'root_dir/dir1/dir2/current_dir/file.ext'
+    old file name => file.ext
+    relative path => dir1/dir2/current_dir
+    new file name => dir1_dir2_current_dir_file.ext
+
+    Parameters
+    -------------------------------------------------------------------------
+        file_name : FileName
+            name of the file
+        current_dir : FilePath
+            path to the current subdirectory
+        root_dir : FilePath
+            path to the root directory
+        separator : Char
+            character that will be placed into the new file name instead of '\\\\' and '/'
+            
+    Returns
+    -------------------------------------------------------------------------
+        new_file_name with the relative path from root_dir to current_dir as prefix to the input file_name
+    """   
     new_file_name = os.path.join(os.path.relpath(current_dir, start=root_dir), file_name)
     new_file_name = replace_chars(new_file_name, ['\\', '/'], separator)    
     new_file_name = rename_if_exists(os.path.join(root_dir, new_file_name))
@@ -72,7 +105,6 @@ def rename_if_exists(target_file_path: FilePath) -> FilePath:
     -------------------------------------------------------------------------
         potentially a new file path that doesn't already exist
     """   
-    
     if os.path.exists(target_file_path):
         
         # Split off extension from target_file_path and add index (i) to distinguish the file        
