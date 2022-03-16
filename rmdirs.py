@@ -21,21 +21,23 @@ def remove(root_dir: FilePath, separator: Char='_') -> None:
         raise ValueError("Invalid path to directory.")
     
     # First directory returned by os.walk() is the root_dir
-    # => Skip as there is no need to copy files
+    # => Get immediate subdirs for deletion via shutil.rmtree()
     dirtree_iter = os.walk(root_dir)
-    next(dirtree_iter, None)
+    _, subdirs, _ = next(dirtree_iter, None)
     
     for current_dir, _, files in dirtree_iter:
         
-        if files:
-            for file_name in files:
-                
-                source_file_path = os.path.join(current_dir, file_name)
-                target_file_path = new_file_name(file_name, current_dir, root_dir, separator)
-                
-                shutil.move(source_file_path, target_file_path)
-                
-                logging.debug(f'New name is "{target_file_path}".')
+        for file_name in files:
+            
+            source_file_path = os.path.join(current_dir, file_name)
+            target_file_path = new_file_name(file_name, current_dir, root_dir, separator)
+            
+            shutil.move(source_file_path, target_file_path)
+            
+            logging.debug(f'New name is "{target_file_path}".')
+
+    for dir_name in subdirs:
+        shutil.rmtree(os.path.join(root_dir, dir_name))
     
     
 def new_file_name(file_name: FileName, current_dir: FilePath, root_dir: FilePath, separator: Char='_'):
