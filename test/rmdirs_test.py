@@ -1,3 +1,4 @@
+from re import sub
 import unittest
 
 import os
@@ -16,6 +17,10 @@ class TestRmdirs(LoggingTestCase, DirectoryTestCase):
         
         self.dir_paths = [
             'test/test_dirs/test_empty',
+            'test/test_dirs/test_empty/empty_dir',
+            'test/test_dirs/test_empty/dir/1',
+            'test/test_dirs/test_empty/dir/2',
+            'test/test_dirs/test_empty/dir/3',
             
             'test/test_dirs/test_subdirs/1/',
             'test/test_dirs/test_subdirs/2/21',
@@ -51,26 +56,50 @@ class TestRmdirs(LoggingTestCase, DirectoryTestCase):
     def test_empty_dir(self):
         """ Test use of rmdirs on an empty directory. """
         
-        self.assertTrue(os.path.exists('test_dirs/test_empty'))
+        dir_path = 'test/test_dirs/test_empty'
+        
+        self.assertTrue(os.path.exists(dir_path))
+        
+        _, dirs, files = next(os.walk(dir_path))
+        self.assertNotEqual(dirs, [])
+        self.assertEqual(files, [])
+        
+        rmdirs.remove(dir_path)
+        
+        _, dirs, files = next(os.walk(dir_path))
+        self.assertEqual(dirs, [])
+        self.assertEqual(files, [])
+        
         
     
     def test_remove_subdirs(self):
         """ Test """
         
-        rmdirs.remove('test_dirs/test_subdirs')
+        target_dir = 'test/test_dirs/test_subdirs'
+        self.assertTrue(os.path.exists(target_dir))
         
-        # self.assertTrue(not os.path.exists( PATH TO SUBDIRS ))
-        self.assertTrue(os.path.exists('test_dirs/test_subdirs'))
+        _, subdirs, _ = next(os.walk(target_dir))
+        self.assertEqual(subdirs, ['1', '2', '3'])
+        
+        rmdirs.remove(target_dir)
+        
+        _, subdirs, _ = next(os.walk(target_dir))
+        self.assertEqual(subdirs, [])
         
         
     def test_renaming(self):
         """ Test """
 
-        target_dir = 'test_dirs/test_renaming'
-
+        target_dir = 'test/test_dirs/test_renaming'
         self.assertTrue(os.path.exists(target_dir))
+
+        _, _, files = next(os.walk(target_dir))
+        self.assertEqual(sorted(files), ['1_1 (1).txt', '1_1.txt'])
         
         rmdirs.remove(target_dir)
+
+        _, _, files = next(os.walk(target_dir))
+        self.assertEqual(sorted(files), ['1_1 (1).txt', '1_1 (2).txt', '1_1.txt'])
         
     
   

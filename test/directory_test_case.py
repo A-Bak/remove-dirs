@@ -24,6 +24,5 @@ class DirectoryTestCase(unittest.TestCase):
             
     
     def tearDown(self) -> None:
-        # shutil.rmtree('test/test_dirs')
-        pass
+        shutil.rmtree('test/test_dirs')
     
