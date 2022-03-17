@@ -13,12 +13,24 @@ FileName = str
 
 def remove(root_dir: FilePath, separator: Char='_') -> None:
     """
-    Function
+    Function for removing all subdirectories of the root_dir. All files located
+    in the subdirectories of the root_dir are moved to the root_dir. The files
+    are renamed according to the relative path from the root_dir to given file.
+    The '\\\\' and '/' in the relative path are replaced by the separator char.
     
+    E.g.:
+        'root_dir/dir1/dir2/current_dir/file.ext'
+        
+        old_file_name => file.ext
+        
+        relative_path => dir1/dir2/current_dir
+        
+        new_file_name => dir1_dir2_current_dir_file.ext
+        
     Parameters
     -------------------------------------------------------------------------
-        file_name : FileName
-            name of the file
+        root_dir : FilePath
+            path to the root directory
         separator : Char
             character that will be placed into the new file name instead of '\\\\' and '/'
             
@@ -57,10 +69,13 @@ def new_file_name(file_name: FileName, current_dir: FilePath, root_dir: FilePath
     backslashes and forwardslashes replaced by the separator character.
     
     E.g.:
-    'root_dir/dir1/dir2/current_dir/file.ext'
-    old file name => file.ext
-    relative path => dir1/dir2/current_dir
-    new file name => dir1_dir2_current_dir_file.ext
+        'root_dir/dir1/dir2/current_dir/file.ext'
+        
+        old_file_name => file.ext
+        
+        relative_path => dir1/dir2/current_dir
+        
+        new_file_name => dir1_dir2_current_dir_file.ext
 
     Parameters
     -------------------------------------------------------------------------
