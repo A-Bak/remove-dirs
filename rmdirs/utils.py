@@ -214,10 +214,3 @@ def _string_contains(string: str, char_list: List[Char]) -> bool:
         raise TypeError(('All elements of char_list must be of type str.'))
     
     return any([ch in string for ch in char_list])
-
-
-
-
-if __name__ == '__main__':
-    
-    print('Rmdirs main function')
