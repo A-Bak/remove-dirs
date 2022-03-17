@@ -5,10 +5,17 @@ import shutil
 import logging
 
 
-Char = str
 
-FilePath = str
-FileName = str
+
+__all__ = ['remove', 'new_file_name', 'rename_if_exists']
+
+class Char(str):
+    """ Single character. """
+class FilePath(str):
+    """ An absolute or a relative path to a file system resource. """
+class FileName(str):
+    """ Full file name of a file in a directory. """
+
 
 
 def remove(root_dir: FilePath, separator: Char='_') -> None:
@@ -93,7 +100,7 @@ def new_file_name(file_name: FileName, current_dir: FilePath, root_dir: FilePath
         new_file_name with the relative path from root_dir to current_dir as prefix to the input file_name
     """   
     new_file_name = os.path.join(os.path.relpath(current_dir, start=root_dir), file_name)
-    new_file_name = replace_chars(new_file_name, ['\\', '/'], separator)    
+    new_file_name = _replace_chars(new_file_name, ['\\', '/'], separator)    
     new_file_name = rename_if_exists(os.path.join(root_dir, new_file_name))
     
     return new_file_name
@@ -136,7 +143,7 @@ def rename_if_exists(target_file_path: FilePath) -> FilePath:
         return target_file_path    
         
         
-def replace_chars(string: str, char_list: List[Char], replacement: Char='_') -> str:
+def _replace_chars(string: str, char_list: List[Char], replacement: Char='_') -> str:
     """
     Function replaces every occurence of characters from char_list in input
     string with the replacement character.
@@ -167,7 +174,7 @@ def replace_chars(string: str, char_list: List[Char], replacement: Char='_') -> 
     new_string = string
     
     try:
-        if string_contains(string, char_list):
+        if _string_contains(string, char_list):
             for ch in char_list:
                 new_string = new_string.replace(ch, replacement)
                 
@@ -177,7 +184,7 @@ def replace_chars(string: str, char_list: List[Char], replacement: Char='_') -> 
     return new_string
 
 
-def string_contains(string: str, char_list: List[Char]) -> bool:     
+def _string_contains(string: str, char_list: List[Char]) -> bool:     
     """ 
     Function checks if the input string contains any characters from char_list.
     
@@ -207,3 +214,10 @@ def string_contains(string: str, char_list: List[Char]) -> bool:
         raise TypeError(('All elements of char_list must be of type str.'))
     
     return any([ch in string for ch in char_list])
+
+
+
+
+if __name__ == '__main__':
+    
+    print('Rmdirs main function')

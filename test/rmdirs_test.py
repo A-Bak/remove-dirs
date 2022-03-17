@@ -51,7 +51,9 @@ class TestRmdirs(LoggingTestCase, DirectoryTestCase):
         
         self.assertTrue(self.logger is not None)
         self.logger.debug("Logged message.")
-    
+        
+        self.assertTrue(os.path.exists(self.log_file_path))
+
     
     def test_empty_dir(self):
         """ Test use of rmdirs on an empty directory. """
