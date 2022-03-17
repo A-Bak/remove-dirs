@@ -9,7 +9,7 @@ with open('requirements.txt', 'r', encoding='UTF-16') as f:
 
 setuptools.setup(
     name="rmdirs",
-    version="0.1.0",
+    version="0.1.1",
     
     author="A-Bak",
     author_email="adam.bak753@gmail.com",

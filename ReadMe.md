@@ -1,11 +1,11 @@
 # rmdirs
 ---
-Rmdirs is a python utility package for removing subdirectories. The files located in the subdirectories are preserved and they are moved into the root directory. The moved files are renamed according to the relative path from the root directory to the subdirectory they are located in. Any '\\' and '/' separators on the relative path are replaced by the separator character. The separator is '_' by default. 
+Rmdirs is a python utility package for removing subdirectories. The files located in the subdirectories are preserved and they are moved into the root directory. The moved files are renamed according to the relative path from the root directory to the subdirectory they are located in. Any `'\'` and `'/'` separators on the relative path are replaced by the separator character. The separator character is `'_'` by default. 
 
 If there are any naming conflicts that arise as a result of renaming moved files then a space and an integer in brackets is appended to the file name as follows:
-```
+```python
 'target/file/path.ext'
-=> 'target/file/path' + ' (i)' + .ext'
+=> 'target/file/path' + ' (i)' + '.ext'
 => 'target/file/path (i).ext'
 ```
 

@@ -13,3 +13,5 @@
 
 # Local deployment of the package
 **/rmdirs.egg-info
+**/build
+**/dist
